@@ -19,7 +19,6 @@ import { Trans, useTranslation } from "react-i18next";
 export const TransactionFees = ({ asset }) => {
   const dispatch = useDispatch();
   const quoteCcy = useSelector((state) => currentPortfolio(state).quoteCcy);
-  const { t } = useTranslation();
 
   const fees = useSelector((state) => {
     const pfolio = currentPortfolio(state);
@@ -110,7 +109,7 @@ const FeeGroup = ({ selected, setSelected, asset }) => {
   const { t } = useTranslation();
 
   return (
-    <div className="flex w-full">
+    <div className="flex flex-col w-full">
       {asset && (
         <FeeRadio
           key="default"
@@ -173,9 +172,11 @@ const FeeRadio = ({ type, label, selected, setSelected }) => {
 const NoFeesForm = () => {
   const { t } = useTranslation();
   return (
-    <p className="font-light text-center self-center">
-      💰 <span className="italic">{t("transactionFee.zeroFee")}</span>
-    </p>
+    <div className="w-full flex flex-col justify-center gap-1">
+      <p className="font-light text-center self-center">
+        💰 <span className="italic">{t("transactionFee.zeroFee")}</span>
+      </p>
+    </div>
   );
 };
 
@@ -194,7 +195,7 @@ const FixedFeeForm = ({
         maxFeeImpact={maxFeeImpact}
         onChangeMaxFeeImpact={onChangeMaxFeeImpact}
       />
-      <div className="w-full flex items-center">
+      <div className="w-full flex-col flex items-center">
         <label className="min-w-[8rem] mr-2 font-light">
           {t("transactionFee.feeAmount")}
         </label>
@@ -258,9 +259,10 @@ const VariableFeeForm = ({
         maxFeeImpact={maxFeeImpact}
         onChangeMaxFeeImpact={onChangeMaxFeeImpact}
       />
-      <div className="w-full flex items-center">
+      <div className="w-full flex flex-col items-center">
         <label className="min-w-[8rem] mr-2 font-light">
           {t("transactionFee.feePercentage")}
+          <label className="text-start min-w-[2rem] ml-2 uppercase">%</label>
         </label>
         <div className="grow">
           <InputNumber
@@ -273,11 +275,13 @@ const VariableFeeForm = ({
             max={100}
           />
         </div>
-        <label className="text-start min-w-[2rem] ml-2 uppercase">%</label>
       </div>
-      <div className="w-full flex items-center">
+      <div className="w-full flex flex-col items-center">
         <label className="min-w-[8rem] mr-2 font-light">
           {t("transactionFee.minFee")}
+          <label className="text-start min-w-[2rem] ml-2 uppercase">
+            {quoteCcy}
+          </label>
         </label>
         <div className="grow">
           <InputNumber
@@ -289,13 +293,14 @@ const VariableFeeForm = ({
             min={0}
           />
         </div>
-        <label className="text-start min-w-[2rem] ml-2 uppercase">
-          {quoteCcy}
-        </label>
       </div>
-      <div className="w-full flex items-center">
+      <div className="w-full flex flex-col items-center">
         <label className="min-w-[8rem] mr-2 font-light">
           {t("transactionFee.maxFee")}
+
+          <label className="text-start min-w-[2rem] ml-2 uppercase">
+            {quoteCcy}
+          </label>
         </label>
         <div className="grow">
           <InputNumber
@@ -307,9 +312,6 @@ const VariableFeeForm = ({
             min={0}
           />
         </div>
-        <label className="text-start min-w-[2rem] ml-2 uppercase">
-          {quoteCcy}
-        </label>
       </div>
       {!isMinFeeValid && (
         <div className="mt-2 font-light text-red-500 text-center">
@@ -329,9 +331,9 @@ const VariableFeeForm = ({
 const MaxFeeImpactInput = ({ maxFeeImpact, onChangeMaxFeeImpact }) => {
   const { t } = useTranslation();
   return (
-    <div className="w-full flex items-center">
+    <div className="w-full flex flex-col items-center">
       <label className="min-w-[8rem] mr-2 font-light">
-        {t("transactionFee.maxFeeImpact")}
+        {t("transactionFee.maxFeeImpact")} %
       </label>
       <div className="grow">
         <InputNumber
@@ -344,7 +346,6 @@ const MaxFeeImpactInput = ({ maxFeeImpact, onChangeMaxFeeImpact }) => {
           max={100}
         />
       </div>
-      <label className="text-start min-w-[2rem] ml-2 uppercase">%</label>
     </div>
   );
 };

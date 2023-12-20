@@ -154,7 +154,7 @@ export const PortfolioStep = ({ ...props }) => {
         />
       </div>
       {assets && assets.length > 0 && (
-        <div className="relative w-full flex flex-col items-end justify-center mt-2">
+        <div className="md:hidden relative w-full flex flex-col items-end justify-center mt-2">
           <button className={feeBtnClass} onClick={onClickTransactionFees}>
             <img src={SETTINGS} className="w-full max-w-[20px]" />
           </button>
@@ -168,118 +168,130 @@ export const PortfolioStep = ({ ...props }) => {
           )}
         </div>
       )}
-      {assets && assets.length > 0 && (
-        <div className="w-full flex items-center mb-3 pl-3 font-light text-2xl">
-          {pfolioName || t("importStep.defaultPortfolioName")}
-        </div>
-      )}
-      <div className="w-full flex flex-col items-center">
-        {assets.map((a, idx) => {
-          const setAssetQty = (qty) => {
-            dispatch(setQty({ symbol: a.symbol, qty: qty }));
-          };
-
-          const setAssetTargetWeight = (w) => {
-            dispatch(
-              setTargetWeight({
-                symbol: a.symbol,
-                weight: w,
-              })
-            );
-          };
-
-          return (
-            <AssetCard
-              key={a.symbol}
-              symbol={a.symbol}
-              name={a.name}
-              aclass={a.aclass}
-              price={a.price}
-              qty={a.qty}
-              setQty={setAssetQty}
-              weight={a.weight}
-              targetWeight={a.targetWeight}
-              setTargetWeight={setAssetTargetWeight}
-              isValidTargetWeight={validity[idx]}
-            />
-          );
-        })}
-      </div>
-      {Object.keys(assetStore).length === 0 && (
-        <span
-          className="mt-2 font-medium underline cursor-pointer"
-          onClick={onClickGoBack}
-        >
-          {t("common.goBack")}
-        </span>
-      )}
-      {Object.keys(assetStore).length > 0 && (
-        <div
-          className={classNames("w-full max-w-[40rem] flex flex-col mt-4", {
-            "gap-4": isMobile,
-            "gap-2": !isMobile,
-          })}
-        >
-          <div className="w-full flex items-center justify-start">
-            <img
-              className="w-full max-w-[3rem] p-1 self-start"
-              alt="Bag"
-              src={BAG}
-            />
-            <p className="flex-grow font-light">
-              <Trans
-                i18nKey="portfolioStep.fillWithNumber"
-                values={{
-                  field: t("portfolioStep.quantity"),
-                  symbol: assets[assets.length - 1].symbol,
-                }}
-                components={[
-                  <span className="font-normal" />,
-                  <span className="uppercase" />,
-                ]}
-              />
-            </p>
-          </div>
-          <div className="w-full flex items-center justify-start">
-            <img
-              className="w-full max-w-[3rem] p-1 self-start"
-              alt="Piechart"
-              src={PIECHART}
-            />
-            <p className="flex-grow font-light">
-              <Trans
-                i18nKey="portfolioStep.defineTargetWeight"
-                values={{
-                  targetWeight: t("portfolioStep.targetWeight"),
-                  percentage: "20%",
-                }}
-                components={[
-                  <span className="font-normal" />,
-                  <span className="italic" />,
-                ]}
-              />
-            </p>
-          </div>
-        </div>
-      )}
-      {(isFirstCardFilled || Object.keys(assetStore).length > 1) &&
-        !isAllAllocated && (
-          <div className="mt-6 font-light text-red-500">
-            <Trans
-              i18nKey="portfolioStep.reviewYourWeight"
-              values={{
-                targetWeights: t("portfolioStep.targetWeights"),
-                actualWeight: cumWeight.toLocaleString(i18n.language, {
-                  maximumFractionDigits: 12,
-                }),
-              }}
-              components={[
-                <span className="font-normal" />,
-                <span className="font-normal" />,
-              ]}
-            />
+      <div
+        className={
+          "w-full columns-1 md:columns-2 flex flex-row sm:flex-col md:flex-row justify-between mt-5"
+        }
+      >
+        {assets && assets.length > 0 && (
+          <div className="w-[20rem] lg:sticky hidden md:flex  relative  flex-col gap-2">
+            <div className="w-full bg-white ring-1 ring-black/5 rounded-md px-3 pt-2 pb-3 shadow-md top-0">
+              <p className="font-light text-xl">
+                💸 {t("portfolioStep.transactionFees")}
+              </p>
+              <TransactionFees />
+            </div>
           </div>
         )}
+
+        <div className="w-full flex flex-col items-start md:ml-12">
+          {assets && assets.length > 0 && (
+            <div className="w-full flex items-center mb-3 font-light text-2xl">
+              {pfolioName || t("importStep.defaultPortfolioName")}
+            </div>
+          )}
+          {assets.map((a, idx) => {
+            const setAssetQty = (qty) => {
+              dispatch(setQty({ symbol: a.symbol, qty: qty }));
+            };
+
+            const setAssetTargetWeight = (w) => {
+              dispatch(
+                setTargetWeight({
+                  symbol: a.symbol,
+                  weight: w,
+                })
+              );
+            };
+
+            return (
+              <AssetCard
+                key={a.symbol}
+                symbol={a.symbol}
+                name={a.name}
+                aclass={a.aclass}
+                price={a.price}
+                qty={a.qty}
+                setQty={setAssetQty}
+                weight={a.weight}
+                targetWeight={a.targetWeight}
+                setTargetWeight={setAssetTargetWeight}
+                isValidTargetWeight={validity[idx]}
+              />
+            );
+          })}
+
+          {(isFirstCardFilled || Object.keys(assetStore).length > 1) &&
+            !isAllAllocated && (
+              <div className="mt-6 font-light text-red-500">
+                <Trans
+                  i18nKey="portfolioStep.reviewYourWeight"
+                  values={{
+                    targetWeights: t("portfolioStep.targetWeights"),
+                    actualWeight: cumWeight.toLocaleString(i18n.language, {
+                      maximumFractionDigits: 12,
+                    }),
+                  }}
+                  components={[
+                    <span className="font-normal" />,
+                    <span className="font-normal" />,
+                  ]}
+                />
+              </div>
+            )}
+        </div>
+      </div>
+      <div className={"w-full mt-5"}>
+        {Object.keys(assetStore).length > 0 && (
+          <div
+            className={classNames("w-full max-w-[40rem] flex flex-col mt-4", {
+              "gap-4": isMobile,
+              "gap-2": !isMobile,
+            })}
+          >
+            <div className="w-full flex items-center justify-start">
+              <img
+                className="w-full max-w-[3rem] p-1 self-start"
+                alt="Bag"
+                src={BAG}
+              />
+              <p className="flex-grow font-light">
+                <Trans
+                  i18nKey="portfolioStep.fillWithNumber"
+                  values={{
+                    field: t("portfolioStep.quantity"),
+                    symbol: assets[assets.length - 1].symbol,
+                  }}
+                  components={[
+                    <span className="font-normal" />,
+                    <span className="uppercase" />,
+                  ]}
+                />
+              </p>
+            </div>
+            <div className="w-full flex items-center justify-start">
+              <img
+                className="w-full max-w-[3rem] p-1 self-start"
+                alt="Piechart"
+                src={PIECHART}
+              />
+              <p className="flex-grow font-light">
+                <Trans
+                  i18nKey="portfolioStep.defineTargetWeight"
+                  values={{
+                    targetWeight: t("portfolioStep.targetWeight"),
+                    percentage: "20%",
+                  }}
+                  components={[
+                    <span className="font-normal" />,
+                    <span className="italic" />,
+                  ]}
+                />
+              </p>
+            </div>
+          </div>
+        )}
+      </div>
       {Object.keys(assetStore).length > 0 && (
         <>
           <p className="mt-6 font-thin text-xs">
@@ -302,6 +314,14 @@ export const PortfolioStep = ({ ...props }) => {
             </button>
           </div>
         </>
+      )}
+      {Object.keys(assetStore).length === 0 && (
+        <span
+          className="mt-2 font-medium underline cursor-pointer"
+          onClick={onClickGoBack}
+        >
+          {t("common.goBack")}
+        </span>
       )}
     </div>
   );
