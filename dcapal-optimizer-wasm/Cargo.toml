@@ -37,4 +37,4 @@ wasm-bindgen-test = "0.3.39"
 env_logger = "0.10.1"
 test-log = { version = "0", features = ["log"] }
 glob = "0.3.1"
-serde_json = "1.0.108"
+serde_json = "1.0.109"
