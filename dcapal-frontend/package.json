@@ -45,8 +45,8 @@
     "vanilla-cookieconsent": "^2.9.2"
   },
   "devDependencies": {
-    "@babel/core": "^7.23.6",
-    "@babel/preset-env": "^7.23.6",
+    "@babel/core": "^7.24.0",
+    "@babel/preset-env": "^7.24.0",
     "@babel/preset-react": "^7.23.3",
     "@playwright/test": "^1.40.1",
     "@types/node": "^20.10.4",
