@@ -1,0 +1,36 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "useDefineForClassFields": true,
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "skipLibCheck": true,
+
+    /* Bundler mode */
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "allowJs": true,
+    "jsx": "react-jsx",
+
+    /* Linting */
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "paths": {
+      "@app/*": [ "./src/app/*" ],
+      "@components/*": [ "./src/components/*" ],
+      "@demo/*": [ "./demo/*" ],
+      "@hooks/*": [ "./src/hooks/*" ],
+      "@images/*": [ "./@images/*" ],
+      "@routes/*": [ "./src/routes/*" ],
+      "@utils/*": [ "./src/utils/*" ],
+      "@workers/*": [ "./src/workers/*" ]
+    }
+  },
+  "include": ["src"],
+  "references": [{ "path": "./tsconfig.node.json" }]
+}
