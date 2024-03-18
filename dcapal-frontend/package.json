@@ -23,7 +23,7 @@
   "dependencies": {
     "@react-hook/media-query": "^1.1.1",
     "@reduxjs/toolkit": "^2.0.1",
-    "axios": "^1.6.2",
+    "axios": "^1.6.8",
     "classnames": "^2.3.2",
     "dcapal-optimizer-wasm": "file:../dcapal-optimizer-wasm/pkg",
     "fuse.js": "^7.0.0",
