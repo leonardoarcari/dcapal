@@ -24,7 +24,7 @@ minilp = "0.2.2"
 serde = { version = "1.0.193", features = ["derive"] }
 serde-wasm-bindgen = "0.6.2"
 futures = "0.3.29"
-anyhow = "1.0.62"
+anyhow = "1.0.86"
 thiserror = "1"
 lazy_static = "1.4.0"
 rand = "0.8.5"
