@@ -13,7 +13,7 @@ axum = { version = "0.7.2", features = ["macros"] }
 axum-extra = { version = "0.9.0", features = ["typed-header"] }
 hyper = { version = "1.0.1", features = ["full"] }
 deadpool-redis = { version = "0.13.0", features = ["serde"] }
-redis = { version = "0.23.3", features = ["tokio-comp"] }
+redis = { version = "0.25.4", features = ["tokio-comp"] }
 reqwest = { version = "0.11.22", features = ["gzip", "json"] }
 serde = "1.0.193"
 serde_json = "1.0.108"
